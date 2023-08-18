@@ -1,0 +1,62 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Your head content -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+<body style="background-color: black; ">
+  
+    
+
+    <div class="container" style="max-width: 1000px;">
+       
+        <h1 class="mb-2" style="color: white;">STOCK APP: </h1>
+        <h2 class="mb-5" id="dates" style="color: white;">DATE:  </h2>
+        <% if (data && data.length > 0) { %>
+        <table class="table table-dark table-striped">
+          <thead>
+            <tr>
+              <th>PCR</th>
+              <th>PCVR</th>
+              <th>CHANGE %</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody id="dynamic-table">
+           
+              <% data.forEach(item => { %>
+                <tr scope="row">
+                  <td ><%= item.pcr %></td>
+                  <td><%= item.pvcr %></td>
+                  <td><%= item.Change %></td>
+                  <td><%= new Date (item.createdAt).toLocaleString() %> </td>
+                </tr>
+              <% }); %>
+            
+          </tbody>
+        </table>
+        <% } else { %>
+            <tr scope="row">
+              <td colspan="3">No data available</td>
+            </tr>
+          <% } %>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+
+    <script>
+
+        const dates = document.getElementById("dates");
+        dates.innerHTML = `DATE: ${new Date().toLocaleString()}`; 
+
+       setInterval(()=>{
+         
+         location.reload(false)
+         window.scrollTo(0, document.body.scrollHeight);
+       }, 7000);
+
+    </script>
+</body>
+</html>
