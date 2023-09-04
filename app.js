@@ -29,6 +29,12 @@ let PREVIOUS_COI = 0
 let CURRENT_ROW = 0
 
 
+let PREVIOUS_POI_total = 0
+
+let PREVIOUS_COI_total = 0
+
+let PREVIOUS_change = 0
+
 
 
 
@@ -37,7 +43,7 @@ function isWithinAllowedTimeRange() {
   const currentTime = moment(); // Get the current time as a moment object.
 
   const beforeTime = moment('09:10:00 AM', format);
-  const afterTime = moment('11:50:00 PM', format);
+  const afterTime = moment('03:50:00 PM', format);
 
   const isWithinRange = currentTime.isBetween(beforeTime, afterTime);
 
@@ -80,7 +86,7 @@ const day = nowInKolkata.format("dddd");
   
   const isAllowed = isWithinAllowedTimeRange();
   console.log("Running")
-if (!isAllowed) {
+if (isAllowed) {
   // Your function code here
   return console.log("Function cannot be executed now.");
 }
@@ -117,27 +123,44 @@ console.log("dsds")
       },
     })
 
-    const totalROws = Datas.length
+
+
+    const totalROws = Datas.length 
+      
+    
+    const colorMAthsPCR = datass.PCR >  PREVIOUS_POI_total ? "#17ff00" : "#C70039";
+
+    const colorMAthsVCR = datass.VPC <  PREVIOUS_COI_total ? "#17ff00" : "#C70039";
 
     let netchanges = netChange(PREVIOUS_COI,PREVIOUS_POI,CE_totOI,PE_totOI,totalROws)
+
+    const colorMAthsChange = netChange >  PREVIOUS_change ? "#17ff00" : "#C70039";
+
+
   console.log(Math.pow(netchanges))
     const datas = {
       pvcr: TotalVPC(CE_totVOL, PE_totVOL).toString() || "0",
       pcr: TotalPCR(CE_totOI, PE_totOI).toString() || "0",
       puts: JSON.stringify(PE_DATA),
       calls: JSON.stringify(CE_DATA),
-      Change:parseFloat(netchanges)
+      Change:parseFloat(netchanges),
+      color_pcr: colorMAthsPCR,
+      color_vcr:colorMAthsVCR,
+      color_chng: colorMAthsChange
     };
+
+    console.log("hello",datas)
 
     try {
 
       if(PREVIOUS_COI === CE_totOI && PREVIOUS_POI === PE_totOI ) return console.log("duplicate")
       const Logss = await Logs.create(datas);
-
+       
        PREVIOUS_COI = CE_totOI
        PREVIOUS_POI = PE_totOI
-
-
+       PREVIOUS_POI_total = datass.PCR
+       PREVIOUS_COI_total = datass.VPC
+       PREVIOUS_change = netchanges
        console.log("User created:", Logss.toJSON());
     } catch (err) {
       console.error("Error creating user:", err.message);
@@ -240,6 +263,6 @@ app.get("/", async (req, res) => {
 
 
 
-cron.schedule("*/20 * * * * *", RunCorn);
+cron.schedule("*/05 * * * * *", RunCorn);
 
 app.listen(PORT, () => console.log("sdsd"));

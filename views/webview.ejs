@@ -29,9 +29,9 @@
            
               <% data.forEach(item => { %>
                 <tr scope="row">
-                  <td ><%= item.pcr %></td>
-                  <td><%= item.pvcr %></td>
-                  <td><%= item.Change %></td>
+                  <td style="color:<%= item.color_pcr %>" ><%= item.pcr %></td>
+                  <td style="color:<%= item.color_vcr%>"><%= item.pvcr %></td>
+                  <td style="color:<%= item.color_chng%>"><%= item.Change %></td>
                   <td><%= new Date (item.createdAt).toLocaleString() %> </td>
                 </tr>
               <% }); %>

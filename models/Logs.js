@@ -29,6 +29,21 @@ const Logs = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+
+    color_pcr: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+
+    color_vcr: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+
+    color_chng: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
   },
   {
     timestamps: true, // Add createdAt and updatedAt fields
