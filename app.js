@@ -134,7 +134,7 @@ console.log("dsds")
 
     let netchanges = netChange(PREVIOUS_COI,PREVIOUS_POI,CE_totOI,PE_totOI,totalROws)
 
-    const colorMAthsChange = netChange >  PREVIOUS_change ? "#17ff00" : "#C70039";
+    const colorMAthsChange = parseFloat(netchanges) >  PREVIOUS_change ? "#17ff00" : "#C70039";
 
 
   console.log(Math.pow(netchanges))
@@ -160,7 +160,7 @@ console.log("dsds")
        PREVIOUS_POI = PE_totOI
        PREVIOUS_POI_total = datass.PCR
        PREVIOUS_COI_total = datass.VPC
-       PREVIOUS_change = netchanges
+       PREVIOUS_change = parseFloat(netchanges)
        console.log("User created:", Logss.toJSON());
     } catch (err) {
       console.error("Error creating user:", err.message);
